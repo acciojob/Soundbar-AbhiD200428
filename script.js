@@ -7,18 +7,25 @@ buttons.forEach((btn) => {
   btn.addEventListener("click", () => {
     if (currentAudio) {
       currentAudio.pause();
-      currentAudio.currentTime = 0;
+      currentAudio.remove();
     }
 
     const sound = btn.textContent.trim();
-    currentAudio = new Audio(`sounds/${sound}.mp3`);
-    currentAudio.play();
+
+    const audio = document.createElement("audio");
+    audio.src = `sounds/${sound}.mp3`;
+    audio.autoplay = true;
+
+    document.body.appendChild(audio);
+
+    currentAudio = audio;
   });
 });
 
 stopBtn.addEventListener("click", () => {
   if (currentAudio) {
     currentAudio.pause();
-    currentAudio.currentTime = 0;
+    currentAudio.remove();
+    currentAudio = null;
   }
 });
